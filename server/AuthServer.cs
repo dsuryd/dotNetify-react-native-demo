@@ -38,7 +38,7 @@ namespace server
       public string Path { get; set; } = "/token";
       public string Issuer { get; set; }
       public string Audience { get; set; }
-      public TimeSpan Expiration { get; set; } = TimeSpan.FromSeconds(30);
+      public TimeSpan Expiration { get; set; } = TimeSpan.FromSeconds(120);
       public SigningCredentials SigningCredentials { get; set; }
    }
 
