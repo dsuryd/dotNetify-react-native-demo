@@ -22,7 +22,7 @@ Run the client on a terminal:
 npm install
 npm start
 ```
-Open another terminal and run the server:
+Open another terminal and run the server (ASP.NET Core 2.0):
 ```
 cd server
 dotnet build
