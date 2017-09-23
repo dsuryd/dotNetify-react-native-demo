@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "server": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://169.254.80.80:5000/"
+    }
+  }
+}
