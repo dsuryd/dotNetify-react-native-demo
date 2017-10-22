@@ -54,10 +54,10 @@ export default class LoginScreen extends React.Component {
           {this.state.exception ? <FormValidationMessage>{this.state.exception}</FormValidationMessage> : null}
           <FormLabel>User Name</FormLabel>
           <FormInput placeholder="Type guest..." onChangeText={handleUserInput} />
-          {this.state.error ? <FormValidationMessage>{this.state.validationError}</FormValidationMessage> : null}
+          {this.state.validationError ? <FormValidationMessage>{this.state.validationError}</FormValidationMessage> : null}
           <FormLabel>Password</FormLabel>
           <FormInput secureTextEntry placeholder="Type dotnetify..." onChangeText={handlePasswordInput} />
-          {this.state.error ? <FormValidationMessage>{this.state.validationError}</FormValidationMessage> : null}
+          {this.state.validationError ? <FormValidationMessage>{this.state.validationError}</FormValidationMessage> : null}
           <Button
             buttonStyle={{ marginTop: 20 }}
             backgroundColor='#03A9F4'

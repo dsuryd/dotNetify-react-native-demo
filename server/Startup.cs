@@ -26,7 +26,7 @@ namespace server
       public void Configure(IApplicationBuilder app)
       {
          app.UseWebSockets();
-         app.UseSignalR();
+         app.UseSignalR(routes => routes.MapDotNetifyHub());
          app.UseDotNetify(config => {
             string secretKey = "dotnetifydemo_secretkey_123!";
             var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));

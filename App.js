@@ -3,18 +3,25 @@ import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native
 import { AppLoading, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 import dotnetify from 'dotnetify';
-
+import signalRnetfx from 'dotnetify/dist/signalR-netfx';
 import AppNavigation from './src/AppNavigation';
 import ScreenTracker from './src/ScreenTracker';
 import Authentication from './src/Authentication';
 
-const androidEmulatorServerUrl = "http://169.254.80.80:5000"; 
-const liveServerUrl = "http://dotnetify.net"; 
+const androidEmulatorServerUrl = "http://169.254.80.80:5000";
+const liveServerUrl = "http://dotnetify.net";
 const serverUrl = Platform.OS === 'android' ? androidEmulatorServerUrl : liveServerUrl;
 
-dotnetify.debug = true;
-dotnetify.hubServerUrl = serverUrl + "/signalr";
-dotnetify.hubOptions.pingInterval = 60000;
+dotnetify.debug = true;  
+
+// Live server is still running an older signalR version, which requires a different SignalR client library.
+if (serverUrl == liveServerUrl) {
+  dotnetify.hubLib = signalRnetfx;
+  dotnetify.hubServerUrl = serverUrl + "/signalr";
+  dotnetify.hubOptions.pingInterval = 60000;
+}
+else
+  dotnetify.hubServerUrl = serverUrl;
 
 Authentication.url = serverUrl + "/token";
 
