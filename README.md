@@ -23,9 +23,9 @@ Follow the [instructions on Expo website](https://docs.expo.io/versions/latest/i
 Run the client on a terminal:
 ```
 npm install
-npm start
+expo start
 ```
-Open another terminal and run the server (ASP.NET Core 2.0):
+Open another terminal and run the server (ASP.NET Core 2.1):
 ```
 cd server
 dotnet build

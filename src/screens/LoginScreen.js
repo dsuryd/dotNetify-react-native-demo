@@ -1,10 +1,8 @@
-import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
-import { Card, Button, FormLabel, FormInput, FormValidationMessage } from "react-native-elements";
-import dotnetify from "dotnetify";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Card, Button, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 
-import Authentication from "../Authentication";
-import ScreenTracker from "../ScreenTracker";
+import Authentication from '../Authentication';
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
@@ -23,23 +21,16 @@ export default class LoginScreen extends React.Component {
     let self = this;
     this.setState({ validationError: null, exception: null });
 
-    Authentication.signIn(this.state.user, this.state.password)
-      .then(() => self.navigate("Main"))
-      .catch(error => {
-        if (error.message == "401")
-          this.setState({ validationError: "Invalid user name or password" });
-        else
-          this.setState({ exception: error.message });
-      });
-  }
+    Authentication.signIn(this.state.user, this.state.password).then(() => self.navigate('Main')).catch(error => {
+      if (error.message == '401') this.setState({ validationError: 'Invalid user name or password' });
+      else this.setState({ exception: error.message });
+    });
+  };
 
   getNavException = ex => {
-    if (!ex)
-      return null;
-    return (ex.name == "UnauthorizedAccessException" || ex == "SecurityTokenExpiredException") ?
-      "Access expired. Please re-login."
-      : ex.message;
-  }
+    if (!ex) return null;
+    return ex.name == 'UnauthorizedAccessException' || ex == 'SecurityTokenExpiredException' ? 'Access expired. Please re-login.' : ex.message;
+  };
 
   render() {
     const handleUserInput = user => this.setState({ user: user });
@@ -58,12 +49,7 @@ export default class LoginScreen extends React.Component {
           <FormLabel>Password</FormLabel>
           <FormInput secureTextEntry placeholder="Type dotnetify..." onChangeText={handlePasswordInput} />
           {this.state.validationError ? <FormValidationMessage>{this.state.validationError}</FormValidationMessage> : null}
-          <Button
-            buttonStyle={{ marginTop: 20 }}
-            backgroundColor='#03A9F4'
-            title="Sign In"
-            onPress={() => this.login()}
-          />
+          <Button buttonStyle={{ marginTop: 20 }} backgroundColor="#03A9F4" title="Sign In" onPress={() => this.login()} />
         </Card>
       </View>
     );
@@ -74,7 +60,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingVertical: 20,
-    backgroundColor: "#ddd"
+    backgroundColor: '#ddd'
   },
   title: {
     alignItems: 'center',
@@ -93,6 +79,6 @@ const styles = StyleSheet.create({
     color: '#333',
     fontWeight: 'bold',
     backgroundColor: 'transparent',
-    marginTop: 20,
+    marginTop: 20
   }
 });

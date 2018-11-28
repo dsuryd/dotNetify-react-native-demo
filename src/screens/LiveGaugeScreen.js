@@ -1,21 +1,20 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { AnimatedGaugeProgress } from 'react-native-simple-gauge';
-import dotnetify from 'dotnetify';
+import dotnetify from 'dotnetify/react-native';
 
 import ScreenTracker from '../ScreenTracker';
-import Authentication from '../Authentication';
 
 const gaugeSize = 250;
 const gaugeWidth = 20;
 const cropDegree = 45;
 const textOffset = gaugeWidth;
-const textWidth = gaugeSize - (textOffset * 2);
-const textHeight = gaugeSize * (1 - cropDegree / 360) - (textOffset * 2);
+const textWidth = gaugeSize - textOffset * 2;
+const textHeight = gaugeSize * (1 - cropDegree / 360) - textOffset * 2;
 
 export default class LiveGaugeScreen extends React.Component {
   static navigationOptions = {
-    title: "Live Gauge",
+    title: 'Live Gauge'
   };
 
   constructor(props) {
@@ -33,8 +32,8 @@ export default class LiveGaugeScreen extends React.Component {
 
   connectLiveGauge = screen => {
     const self = this;
-    if (screen == "LiveGauge") {
-      this.vm = dotnetify.react.connect("LiveGaugeVM", this, {
+    if (screen == 'LiveGauge') {
+      this.vm = dotnetify.react.connect('LiveGaugeVM', this, {
         exceptionHandler: ex => ScreenTracker.goToLoginScreen(self.navigate, ex)
       });
     }
@@ -42,7 +41,7 @@ export default class LiveGaugeScreen extends React.Component {
       this.vm.$destroy();
       this.vm = null;
     }
-  }
+  };
 
   render() {
     if (!this.state.Value)
@@ -61,7 +60,8 @@ export default class LiveGaugeScreen extends React.Component {
           cropDegree={cropDegree}
           tintColor="#9acfea"
           backgroundColor="#d9edf5"
-          strokeCap="circle">
+          strokeCap="circle"
+        >
           {fill => (
             <View style={styles.digitalView}>
               <Text style={styles.digital}>{this.state.Value}</Text>

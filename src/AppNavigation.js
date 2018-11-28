@@ -21,33 +21,28 @@ const tabNavigation = TabNavigator(
         const iosIconSuffix = focused ? '' : '-outline';
 
         switch (navigation.state.routeName) {
-          case 'LiveGauge': iconName = isIos ? `ios-speedometer${iosIconSuffix}` : 'md-speedometer'; break;
-          case 'AFITop100': iconName = isIos ? `ios-list-box${iosIconSuffix}` : 'md-list-box'; break;
+          case 'LiveGauge':
+            iconName = isIos ? `ios-speedometer${iosIconSuffix}` : 'md-speedometer';
+            break;
+          case 'AFITop100':
+            iconName = isIos ? `ios-list-box${iosIconSuffix}` : 'md-list-box';
+            break;
         }
-        return (
-          <Ionicons
-            name={iconName}
-            size={28}
-            style={{ marginBottom: -3 }}
-            color={focused ? '#92d050' : '#ccc'}
-          />
-        );
-      },
+        return <Ionicons name={iconName} size={28} style={{ marginBottom: -3 }} color={focused ? '#92d050' : '#ccc'} />;
+      }
     }),
     tabBarOptions: { activeTintColor: '#7ebc3c' },
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
-    swipeEnabled: false,
+    swipeEnabled: false
   }
 );
 
-export default StackNavigator(
-  {
-    Login: { screen: LoginScreen },
-    Main: { screen: tabNavigation },
-    AFIDetails: {
-      screen: AFIDetailsScreen,
-      navigationOptions: ({ navigation }) => ({ title: `${navigation.state.params.title}` }),
-    }
+export default StackNavigator({
+  Login: { screen: LoginScreen },
+  Main: { screen: tabNavigation },
+  AFIDetails: {
+    screen: AFIDetailsScreen,
+    navigationOptions: ({ navigation }) => ({ title: `${navigation.state.params.title}` })
   }
-);
+});

@@ -1,7 +1,10 @@
-node_modules/
-.expo/
-.vscode/
+node_modules/**/*
+.expo/*
 npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
 /server/*.user
 /server/.vs
 /server/obj

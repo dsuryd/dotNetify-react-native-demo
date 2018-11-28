@@ -1,7 +1,7 @@
 import React from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
-import dotnetify from 'dotnetify';
+import dotnetify from 'dotnetify/react-native';
 
 import Authentication from '../Authentication';
 import ScreenTracker from '../ScreenTracker';
@@ -17,14 +17,15 @@ export default class AFITop100Screen extends React.Component {
     this.state = { Movies: [] };
 
     const self = this;
-    Authentication.getAccessToken()
-      .then(token =>
-        this.vm = dotnetify.react.connect("AFITop100ListVM", this, {
+    Authentication.getAccessToken().then(
+      token =>
+        (this.vm = dotnetify.react.connect('AFITop100ListVM', this, {
           vmArg: { RecordsPerPage: 20 },
           setState: this.updateMovies,
-          headers: { Authorization: "Bearer " + token },
+          headers: { Authorization: 'Bearer ' + token },
           exceptionHandler: ex => ScreenTracker.goToLoginScreen(self.navigate, ex)
-        }));
+        }))
+    );
   }
 
   componentWillUnmount() {
@@ -35,12 +36,11 @@ export default class AFITop100Screen extends React.Component {
     const { Movies } = newState;
     newState.Movies = this.state.Movies.concat(Movies);
     this.setState(newState);
-  }
+  };
 
   getMoreMovies = () => {
-    if (this.state.CurrentPage < this.state.MaxPage)
-      this.vm.$dispatch({ Next: null });
-  }
+    if (this.state.CurrentPage < this.state.MaxPage) this.vm.$dispatch({ Next: null });
+  };
 
   render() {
     if (!this.state.Movies.length)
@@ -56,7 +56,7 @@ export default class AFITop100Screen extends React.Component {
           data={this.state.Movies}
           onEndReachedThreshold={0.5}
           onEndReached={this.getMoreMovies}
-          keyExtractor={(item) => item.Rank}
+          keyExtractor={item => `${item.Rank}`}
           renderItem={({ item }) => {
             const navArg = { rank: item.Rank, title: `AFI #${item.Rank}` };
             return (
@@ -102,5 +102,5 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     marginRight: 10,
     marginTop: -1
-  },
+  }
 });

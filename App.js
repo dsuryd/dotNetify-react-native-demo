@@ -2,28 +2,27 @@ import React from 'react';
 import { Alert, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { AppLoading, Font } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
-import dotnetify from 'dotnetify';
+import dotnetify from 'dotnetify/react-native';
 import signalRnetfx from 'dotnetify/dist/signalR-netfx';
 import AppNavigation from './src/AppNavigation';
 import ScreenTracker from './src/ScreenTracker';
 import Authentication from './src/Authentication';
 
-const androidEmulatorServerUrl = "http://169.254.80.80:5000";
-const liveServerUrl = "http://dotnetify.net";
+const androidEmulatorServerUrl = 'http://169.254.80.80:5000';
+const liveServerUrl = 'http://dotnetify.net';
 const serverUrl = Platform.OS === 'android' ? androidEmulatorServerUrl : liveServerUrl;
 
-dotnetify.debug = true;  
+dotnetify.debug = true;
 
 // Live server is still running an older signalR version, which requires a different SignalR client library.
 if (serverUrl == liveServerUrl) {
   dotnetify.hubLib = signalRnetfx;
-  dotnetify.hubServerUrl = serverUrl + "/signalr";
+  dotnetify.hubServerUrl = serverUrl + '/signalr';
   dotnetify.hubOptions.pingInterval = 60000;
 }
-else
-  dotnetify.hubServerUrl = serverUrl;
+else dotnetify.hubServerUrl = serverUrl;
 
-Authentication.url = serverUrl + "/token";
+Authentication.url = serverUrl + '/token';
 
 export default class App extends React.Component {
   state = { appLoaded: false, connectionStatus: null };
@@ -32,25 +31,23 @@ export default class App extends React.Component {
     super(props);
 
     dotnetify.connectionStateHandler = (state, ex) => {
-      this.setState({ connectionStatus: state == "connected" ? null : state });
-      if (state == "error")
-        Alert.alert("Connection Error", ex.message, [{ text: 'OK' }], { cancelable: false });
+      this.setState({ connectionStatus: state == 'connected' ? null : state });
+      if (state == 'error') Alert.alert('Connection Error', ex.message, [ { text: 'OK' } ], { cancelable: false });
     };
   }
 
   componentWillMount() {
     Font.loadAsync(Ionicons.font);
     this.setState({ appLoaded: true });
-    ScreenTracker.setScreen("LiveGauge");
+    ScreenTracker.setScreen('LiveGauge');
   }
 
   handleNavigationStateChange(prevState, newState) {
     ScreenTracker.setScreen(newState);
-  };
+  }
 
   render() {
-    if (!this.state.appLoaded)
-      return <AppLoading />;
+    if (!this.state.appLoaded) return <AppLoading />;
 
     return (
       <View style={styles.container}>
@@ -66,11 +63,11 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   statusBarUnderlay: {
     height: 24,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.2)'
   },
   error: {
     backgroundColor: 'red',
